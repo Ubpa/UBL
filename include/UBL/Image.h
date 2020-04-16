@@ -27,7 +27,10 @@ namespace Ubpa {
 		bool Init(const std::string& path);
 		void Init(size_t width, size_t height, size_t channel);
 		void Init(size_t width, size_t height, size_t channel, const float* data);
-
+		
+		template<typename T, // float, rgbf or rgbaf
+			typename = std::enable_if_t<std::is_same_v<T, float> || std::is_same_v<T, rgbf> || std::is_same_v<T, rgbaf>>>
+		void SetAll(const T& color);
 		// png, bmp, tga, jpg, hdr
 		bool Save(const std::string& path);
 		void Clear();
@@ -37,8 +40,8 @@ namespace Ubpa {
 		float& At(size_t x, size_t y, size_t c);
 		const float& At(size_t x, size_t y, size_t c) const;
 		const rgbaf At(size_t x, size_t y) const;
-		template<typename T, // rgbf or rgbaf
-			typename = std::enable_if_t<std::is_same_v<T, rgbf> || std::is_same_v<T, rgbaf>>>
+		template<typename T, // float, rgbf or rgbaf
+			typename = std::enable_if_t<std::is_same_v<T, float> || std::is_same_v<T, rgbf> || std::is_same_v<T, rgbaf>>>
 		T& At(size_t x, size_t y);
 
 		const rgbaf Sample(float u, float v) const;

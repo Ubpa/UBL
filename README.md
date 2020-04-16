@@ -5,4 +5,5 @@ Ubpa Basic Library
 
 - [Image](include/UBL/Image.h) 
 - [Pool](include/UBL/Pool.h) 
+- [RsrcMngr](RsrcMngr.h) 
 
