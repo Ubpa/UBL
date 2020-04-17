@@ -1,6 +1,7 @@
 #pragma once
 
 #include <UGM/rgba.h>
+#include <UGM/point.h>
 
 #include <UDP/Basic/Read.h>
 
@@ -32,7 +33,7 @@ namespace Ubpa {
 			typename = std::enable_if_t<std::is_same_v<T, float> || std::is_same_v<T, rgbf> || std::is_same_v<T, rgbaf>>>
 		void SetAll(const T& color);
 		// png, bmp, tga, jpg, hdr
-		bool Save(const std::string& path);
+		bool Save(const std::string& path) const;
 		void Clear();
 
 		bool IsValid() const noexcept;
@@ -44,7 +45,8 @@ namespace Ubpa {
 			typename = std::enable_if_t<std::is_same_v<T, float> || std::is_same_v<T, rgbf> || std::is_same_v<T, rgbaf>>>
 		T& At(size_t x, size_t y);
 
-		const rgbaf Sample(float u, float v) const;
+		const rgbaf SampleNearest(const pointf2& uv) const;
+		const rgbaf SampleLinear(const pointf2& uv) const;
 	};
 }
 

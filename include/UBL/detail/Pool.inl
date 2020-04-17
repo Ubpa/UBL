@@ -46,11 +46,15 @@ namespace Ubpa {
 		std::unordered_set<T*> freeAdressesSet(freeAdresses.begin(), freeAdresses.end());
 		for (auto block : blocks) {
 			for (size_t i = 0; i < BLOCK_SIZE; i++) {
-				T* adress = block->data() + i;
+				T* adress = block + i;
 				if (freeAdressesSet.find(adress) == freeAdressesSet.end())
 					adress->~T();
 			}
+#ifdef WIN32
+			_aligned_free(block);
+#else
 			free(block);
+#endif // WIN32
 		}
 		blocks.clear();
 		freeAdresses.clear();
@@ -58,9 +62,13 @@ namespace Ubpa {
 
 	template<typename T>
 	void Pool<T>::NewBlock() {
-		auto block = (Block*)malloc(sizeof(Block)); // won't call constructor
+#ifdef WIN32
+		auto block = reinterpret_cast<T*>(_aligned_malloc(BLOCK_SIZE * sizeof(T), std::alignment_of_v<T>));
+#else
+		auto block = reinterpret_cast<T*>(aligned_alloc(BLOCK_SIZE * sizeof(T), std::alignment_of_v<T>));
+#endif // WIN32
 		blocks.push_back(block);
 		for (size_t i = 0; i < BLOCK_SIZE; i++)
-			freeAdresses.push_back(block->data() + i);
+			freeAdresses.push_back(block + i);
 	}
 }

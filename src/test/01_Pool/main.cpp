@@ -5,7 +5,7 @@
 using namespace std;
 using namespace Ubpa;
 
-class C {
+class alignas(16) C {
 public:
 	C(size_t n) : n{ n } {}
 	~C() {
@@ -17,6 +17,7 @@ private:
 
 int main() {
 	Pool<C> pool;
+	sizeof(C);
 	for (size_t i = 0; i < 100; i++)
 		pool.Request(i);
 	cout << "move" << endl;

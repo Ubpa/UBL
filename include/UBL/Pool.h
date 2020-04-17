@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <array>
+#include <cstdlib>
 
 namespace Ubpa {
 	template<typename T>
@@ -22,9 +23,7 @@ namespace Ubpa {
 
 	private:
 		static const size_t BLOCK_SIZE = 1024;
-		using Block = std::array<T, BLOCK_SIZE>;
-
-		std::vector<Block*> blocks;
+		std::vector<T*> blocks;
 		std::vector<T*> freeAdresses;
 	};
 }

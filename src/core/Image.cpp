@@ -115,7 +115,7 @@ void Image::Init(size_t width, size_t height, size_t channel, const float* data)
 	memcpy(this->data, data, width * height * channel * sizeof(float));
 }
 
-bool Image::Save(const std::string& path) {
+bool Image::Save(const std::string& path) const {
 	assert(IsValid());
 	assert(!path.empty());
 
@@ -205,7 +205,20 @@ const rgbaf Image::At(size_t x, size_t y) const {
 	return rst;
 }
 
-const rgbaf Image::Sample(float u, float v) const {
+const rgbaf Image::SampleNearest(const pointf2& uv) const {
+	const float u = uv[0];
+	const float v = uv[1];
+	float xf = width * u - 0.5f; // [-0.5f, width - 0.5f]
+	float yf = height * v - 0.5f; // [-0.5f, height - 0.5f]
+	auto x = static_cast<size_t>(std::round(xf));
+	auto y = static_cast<size_t>(std::round(yf));
+	return At(x, y);
+}
+
+const rgbaf Image::SampleLinear(const pointf2& uv) const {
+	const float u = uv[0];
+	const float v = uv[1];
+
 	assert(IsValid());
 	assert(0 <= u && u <= 1);
 	assert(0 <= v && v <= 1);
