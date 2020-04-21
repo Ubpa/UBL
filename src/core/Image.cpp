@@ -111,6 +111,9 @@ void Image::Init(size_t width, size_t height, size_t channel) {
 
 void Image::Init(size_t width, size_t height, size_t channel, const float* data) {
 	Clear();
+	this->width = width;
+	this->height = height;
+	this->channel = channel;
 	this->data = new float[width * height * channel];
 	memcpy(this->data, data, width * height * channel * sizeof(float));
 }

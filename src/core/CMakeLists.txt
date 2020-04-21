@@ -1,13 +1,13 @@
 Ubpa_DownloadFile(
-	https://cdn.jsdelivr.net/gh/Ubpa/UData@master/UBL/stb_image.h
+	https://ubpa.github.io/UData/common/include/stb_image.h
 	${CMAKE_CURRENT_SOURCE_DIR}/_deps/stb_image.h
-	SHA256 73B55B976E61DEBBB7BC10D5B31C8F043AB5D966E67F75258E0D3F57F2A0321E
+	SHA256 281C4F378083E1F195CD06FB98F1EC7EB9749353EB19C915F17C2AF46ABBAFEE
 )
 
 Ubpa_DownloadFile(
-	https://cdn.jsdelivr.net/gh/Ubpa/UData@master/UBL/stb_image_write.h
+	https://ubpa.github.io/UData/common/include/stb_image_write.h
 	${CMAKE_CURRENT_SOURCE_DIR}/_deps/stb_image_write.h
-	SHA256 89e77920c2399cd6c638000855abcda1ea8951bb8fdd31b27b953dbb4d55bc46
+	SHA256 F34D6E55C7BB69C98BF66F191A7636A0B022047BCE7C7B16A9A9F356046FDC8A
 )
 
 Ubpa_GlobGroupSrcs(RST sources PATHS
