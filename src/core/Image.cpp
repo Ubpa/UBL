@@ -19,8 +19,8 @@ Image::~Image() {
 	delete data;
 }
 
-Image::Image(const std::string& path) {
-	Init(path);
+Image::Image(const std::string& path, bool flip) {
+	Init(path, flip);
 }
 
 Image::Image(size_t width, size_t height, size_t channel) {
@@ -73,11 +73,13 @@ Image& Image::operator=(const Image& image) {
 	return *this;
 }
 
-bool Image::Init(const std::string& path) {
+bool Image::Init(const std::string& path, bool flip) {
 	int w, h, c;
 
+	stbi_set_flip_vertically_on_load(static_cast<int>(flip));
+
 	if (path.size() > 4 && path.substr(path.size() - 4, 4) == ".hdr") {
-		float* stbi_data = stbi_loadf(path.c_str(), &w, &h, &c, 0);
+		float* stbi_data = stbi_loadf(path.data(), &w, &h, &c, 0);
 		if (!stbi_data)
 			return false;
 		Init(w, h, c, stbi_data);
@@ -118,7 +120,7 @@ void Image::Init(size_t width, size_t height, size_t channel, const float* data)
 	memcpy(this->data, data, width * height * channel * sizeof(float));
 }
 
-bool Image::Save(const std::string& path) const {
+bool Image::Save(const std::string& path, bool flip) const {
 	assert(IsValid());
 	assert(!path.empty());
 
@@ -138,7 +140,7 @@ bool Image::Save(const std::string& path) const {
 	int w = static_cast<int>(width);
 	int h = static_cast<int>(height);
 	int c = static_cast<int>(channel);
-
+	stbi_flip_vertically_on_write(static_cast<int>(flip));
 	if (k < 4) {
 		size_t num = width * height * channel;
 		stbi_uc* stbi_data = new stbi_uc[num];
