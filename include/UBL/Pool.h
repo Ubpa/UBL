@@ -16,6 +16,8 @@ namespace Ubpa {
 		T* Request(Args&&... args);
 		void Recycle(T* object);
 		void Reserve(size_t n);
+		// no ~T()
+		void FastClear();
 		void Clear();
 
 	private:

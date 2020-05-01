@@ -2,7 +2,7 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR)
 
 # 设定项目
-project(UBL VERSION 0.1.3)
+project(UBL VERSION 0.1.4)
 message(STATUS "[Project] ${PROJECT_NAME}")
 
 # 在 Debug 模式下自动对 dll 和 lib 文件名后边加 d，但 exe 仍然需要手动设置
@@ -57,8 +57,8 @@ Ubpa_InitInstallPrefix()
 Ubpa_InitTestSwitch()
 #set(Ubpa_BuildTest true)
 
-Ubpa_AddDep(UDP 0.4.0)
-Ubpa_AddDep(UGM 0.5.2)
+Ubpa_AddDep(UDP 0.4.1)
+Ubpa_AddDep(UGM 0.5.3)
 
 Ubpa_AddSubDirsRec(src)
 
